@@ -3,12 +3,46 @@
 **/.env.*
 
 # Exclude IntelliJ IDEA project files
-.idea/
+**/.idea/
 
 # Exclude VS Code project files
-.vscode/
+**/.vscode/
 
 # Exclude CSV files in any directory
 **/*.csv
 
-**/.zip
+# Exclude ZIP files in any directory
+**/*.zip
+
+# Exclude all .mvn directories and their contents
+**/.mvn/
+
+# Exclude Maven wrapper files
+**/mvnw
+**/mvnw.cmd
+
+# Exclude logs and temporary files
+**/*.log
+**/*.tmp
+**/*.swp
+
+# Exclude OS generated files
+**/Thumbs.db
+**/Desktop.ini
+
+# Exclude node_modules (if working with Node.js)
+**/node_modules/
+
+# Exclude build and dependency folders
+**/build/
+**/dist/
+**/target/
+
+# Exclude MacOS specific files
+**/.DS_Store
+
+# Exclude Windows specific files
+**/ehthumbs.db
+**/Icon?
+
+**/__pycache__/

@@ -1,0 +1,29 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: auth-service
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/auth/**
+          filters:
+            - AuthenticationFilter
+        - id: products-service
+          uri: lb://PRODUCTS-SERVICE
+          predicates:
+            - Path=/products/**
+          filters:
+            - AuthenticationFilter
+      discovery:
+        locator:
+          enabled: true
+      globalcors:
+        cors-configurations:
+            '[/**]':
+                allowedOrigins:
+                  - "http://localhost:3000"
+                  - "http://127.0.0.1:3000"
+                  - "http://192.168.1.12:3000"
+                allowedMethods: "*"
+                allowedHeaders: "*"
+                allowCredentials: true

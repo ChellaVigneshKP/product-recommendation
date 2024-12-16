@@ -1,0 +1,15 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        search-events-output:
+          destination: search-events-topic
+          group: search-service-group
+          contentType: application/json
+        click-events-output:
+          destination: click-events-topic
+          group: click-service-group
+          contentType: application/json
+      kafka:
+        binder:
+          brokers: localhost:9092
