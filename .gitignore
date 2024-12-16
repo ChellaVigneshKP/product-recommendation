@@ -1,0 +1,14 @@
+# Exclude environment files in any directory
+**/.env
+**/.env.*
+
+# Exclude IntelliJ IDEA project files
+.idea/
+
+# Exclude VS Code project files
+.vscode/
+
+# Exclude CSV files in any directory
+**/*.csv
+
+**/.zip
