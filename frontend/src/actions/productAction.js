@@ -137,7 +137,7 @@ export const getSuggestedProducts = () => async (dispatch) => {
     try {
         dispatch({ type: GET_SUGGESTED_PRODUCTS_REQUEST });
 
-        const { data } = await axios.get(`${baseurl}/products/recommendations/2`, { credentials: 'include', withCredentials: true });
+        const { data } = await axios.get(`${baseurl}/products/recommendations`, { credentials: 'include', withCredentials: true });
 
         dispatch({
             type: GET_SUGGESTED_PRODUCTS_SUCCESS,

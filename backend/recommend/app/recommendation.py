@@ -4,7 +4,6 @@ import hashlib
 import aioredis
 from google.cloud import bigquery
 from app.config import REDIS_HOST, REDIS_PORT, REDIS_USER, REDIS_PASSWORD
-
 # Initialize BigQuery client
 bigquery_client = bigquery.Client(project="virtualization-and-cloud")
 

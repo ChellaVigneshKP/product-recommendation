@@ -44,11 +44,6 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/recommendations")
-    public ResponseEntity<List<Product>> getRecommendations(@RequestParam String userId) {
-        List<Product> recommendations = productService.getRecommendations(userId);
-        return ResponseEntity.ok(recommendations);
-    }
 
     @GetMapping("/latest")
     public ResponseEntity<List<Product>> getLatestProducts() {
