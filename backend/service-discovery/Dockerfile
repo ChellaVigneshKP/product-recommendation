@@ -7,7 +7,7 @@ WORKDIR /app
 COPY target/service-discovery-*.jar service-discovery.jar
 
 # Make port 8761 available to the world outside this container
-EXPOSE 8761
+EXPOSE 8080
 
 # Run the jar file
 ENTRYPOINT ["java", "-jar", "/app/service-discovery.jar"]
