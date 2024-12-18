@@ -45,7 +45,7 @@ public class UserController {
     public ResponseEntity<?> getUserDetails(HttpServletRequest request) {
         Cookie jwtCookie = WebUtils.getCookie(request, JWT_COOKIE_NAME);
         if (jwtCookie == null) {
-            ApiResponse response = new ApiResponse(false, "Please Login to Access");
+            UserApiResponse response = new UserApiResponse(false, "Please Login to Access");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
         try {
@@ -55,11 +55,11 @@ public class UserController {
             if (user.isPresent()) {
                 return ResponseEntity.ok(new UserDetailsDTO(true, new UserDetailsDTO.UserInfo(user.get())));
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(false, "User not found"));
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new UserApiResponse(false, "User not found"));
             }
         } catch (Exception e) {
             logger.error("Error occurred while fetching user details: {} ", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, "Error occurred while fetching user details"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new UserApiResponse(false, "Error occurred while fetching user details"));
         }
     }
 
@@ -70,13 +70,13 @@ public class UserController {
 
         if (email == null || password == null || email.isEmpty() || password.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new ApiResponse(false, "Please Enter Email and Password"));
+                    .body(new UserApiResponse(false, "Please Enter Email and Password"));
         }
 
         User user = userRepository.findByEmail(email);
         if (user == null || !passwordEncoder.matches(password, user.getPassword())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(new ApiResponse(false, "Invalid Email or Password"));
+                    .body(new UserApiResponse(false, "Invalid Email or Password"));
         }
 
         String token = jwtUtil.generateToken(user.getId());
@@ -105,7 +105,7 @@ public class UserController {
                 .build();
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, cookie.toString())
-                .body(new ApiResponse(true, "Logged out successfully"));
+                .body(new UserApiResponse(true, "Logged out successfully"));
     }
 
     @PostMapping("/register")
@@ -117,7 +117,7 @@ public class UserController {
         logger.info("Registering user with name: {}", email);
         try {
             if (userRepository.existsByEmail(email)) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(false, "Email already exists"));
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new UserApiResponse(false, "Email already exists"));
             }
             Map<Object, Object> uploadResult = cloudinary.uploader().upload(avatarFile.getBytes(), ObjectUtils.asMap(
                     "folder", "avatars",
@@ -154,10 +154,10 @@ public class UserController {
                     .body(userDTO);
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ApiResponse(false, "File upload error"));
+                    .body(new UserApiResponse(false, "File upload error"));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ApiResponse(false, "Error occurred while registering user"));
+                    .body(new UserApiResponse(false, "Error occurred while registering user"));
         }
 
     }
