@@ -81,7 +81,7 @@
         <dependency>
             <groupId>com.nimbusds</groupId>
             <artifactId>nimbus-jose-jwt</artifactId>
-            <version>9.46</version>  <!-- You can check for the latest version on Maven Central -->
+            <version>10.0.2</version>  <!-- You can check for the latest version on Maven Central -->
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
